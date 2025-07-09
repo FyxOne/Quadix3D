@@ -1,0 +1,9 @@
+{
+    "game_mode": "offline", 
+    "server_ip": "localhost",
+    "server_port": 5555,
+    "username": "Player",
+    "fov": 90,
+    "mouse_sensitivity": 40,
+    "render_distance": 10
+}
