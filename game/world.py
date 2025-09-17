@@ -1,26 +1,28 @@
-from ursina import *
-from game.voxel import Voxel
+from engine import Shader
+from voxel import Voxel
 
 class World:
-    def __init__(self, player=None):
-        self.boxes = []
-        self.player = player
-        self.create_platform()
-    
-    def create_platform(self):
-        """Создает стартовую платформу"""
-        platform_position = (15, 0, 15)
+    def __init__(self):
+        self.blocks = []
+        
+        x = -15
+        z = -15
         for i in range(30):
+            row = []
             for j in range(30):
-                box = Voxel(
-                    position=(platform_position[0] + j - 15, 
-                             platform_position[1], 
-                             platform_position[2] + i - 15),
-                    texture='grass',
-                    world=self,
-                    player=self.player 
-                )
-                self.boxes.append(box)
-    
-    def get_boxes(self):
-        return self.boxes
+                voxel = Voxel()
+                voxel.setPosition(x, -2, z)
+
+                row.append(voxel)
+
+                x += 1
+            
+            self.blocks.append(row)
+            x = -15
+            z += 1
+
+    def draw(self, shader):
+        for i in range(0, 30):
+            for j in range(0, 30):
+                shader.set_matrix("model", self.blocks[i][j].getMathModel())
+                self.blocks[i][j].draw()
